@@ -118,6 +118,76 @@ public class lista {
         }
         return null;
     }
+
+        public void eliminarAlFinal(reserva nuevo) {
+        if(primero == null) {
+            return; 
+        }
+        
+        if(primero == ultimo) {
+            primero = ultimo = null;
+            listaReservas.clear();
+        } else {
+            // Eliminar del ArrayList
+            if (!listaReservas.isEmpty()) {
+                listaReservas.remove(listaReservas.size() - 1);
+            }
+            
+            ultimo = ultimo.anterior;
+            ultimo.siguiente = null;
+        }
+    }
+
+    public void EliminarPrimero(reserva nuevo) {
+        if(primero == null) {
+            return; 
+        }
+        
+        if(primero == ultimo) {
+            primero = ultimo = null;
+            listaReservas.clear(); // Limpiar ArrayList
+        } else {
+            // Eliminar del ArrayList
+            if (!listaReservas.isEmpty()) {
+                listaReservas.remove(0);
+            }
+            
+            primero = primero.siguiente;
+            primero.anterior = null;
+        }
+    }
+
+    public void EliminarEnmedio(reserva nuevo) {
+        if(primero == null) {
+            return;
+        }
+        
+        reserva aux = primero; 
+        int index = 0;
+        
+        while(aux != null && !aux.getCliente().equals(nuevo.getCliente())) {
+            aux = aux.siguiente;
+            index++;
+        }
+        
+        if(aux == null) {
+            return; 
+        }
+        
+        if(aux == primero) {
+            EliminarPrimero(nuevo);
+        } else if(aux == ultimo) {
+            eliminarAlFinal(nuevo);
+        } else {
+            // Eliminar del ArrayList
+            if (index < listaReservas.size()) {
+                listaReservas.remove(index);
+            }
+            
+            aux.anterior.siguiente = aux.siguiente;
+            aux.siguiente.anterior = aux.anterior;
+        }
+    }
     
    
 }
