@@ -188,6 +188,45 @@ public class lista {
             aux.siguiente.anterior = aux.anterior;
         }
     }
+      public DefaultListModel buscarXfecha(String fecha) {
+        DefaultListModel model = new DefaultListModel();
+        
+        // ArrayList para buscar por fecha
+        boolean encontrado = false;
+        for (reserva r : listaReservas) {
+            if (r.getFecha().equals(fecha)) {
+                JOptionPane.showMessageDialog(null, "La reserva está a nombre de "+ r.getCliente()+ 
+                                             "\n Lugar de destino es " + r.getDestino() +
+                                             "\n Reservado para el día " + r.getFecha());
+                encontrado = true;
+                break;
+            }
+        }
+        
+        // Si no se encontró usando ArrayList, usar el método original como respaldo
+        if (!encontrado) {
+            reserva aux2 = primero; 
+            int index = 0;
+            
+            while(aux2 != null) {
+                if(aux2.getFecha().equals(fecha)) { 
+                    JOptionPane.showMessageDialog(null, "La reserva está a nombre de "+ aux2.getCliente()+ 
+                                                 "\n Lugar de destino es " + aux2.getDestino() +
+                                                 "\n Reservado para el día " + aux2.getFecha());
+                    break;
+                }
+                model.add(index, aux2);
+                aux2 = aux2.siguiente;
+                index++;
+            }
+        }
+        
+        return model;
+    }
     
-   
+    // Método para obtener el ArrayList 
+    public ArrayList<reserva> getListaReservas() {
+        return listaReservas;
+    }
+    
 }
